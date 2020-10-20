@@ -15,6 +15,7 @@ public class Control : MonoBehaviour
     public static Gravity gravity;
 
     public Text JumpCountText;
+    public Animator animator;
 
     private bool facingRight = true;
     private Rigidbody2D rb;
@@ -33,8 +34,9 @@ public class Control : MonoBehaviour
         transform.Translate(Vector3.right * moveSpeed * horizontalInput * Time.deltaTime);
 
         // flip sprite according to direction
-        if (horizontalInput != 0) 
+        if (horizontalInput != 0)
         {
+            animator.SetBool("Is_Walking", true);
             if (horizontalInput > 0f && facingRight)
             {
                 Flip();
@@ -46,6 +48,10 @@ public class Control : MonoBehaviour
                 facingRight = true;
             }
         }
+        else
+        {
+            animator.SetBool("Is_Walking", false);
+        }
     }
 
     private Regex rg = new Regex(@"^[1-6]"); // numbers from 1 to 6
@@ -53,6 +59,7 @@ public class Control : MonoBehaviour
     {
         if (Input.GetButtonDown("Jump"))
         {
+            animator.SetBool("Is_Jumping", true);
             if (currentJumpCount < maxJumpCount)
             {
                 rb.velocity = gravity.Direction * -jumpSpeed;
@@ -79,6 +86,7 @@ public class Control : MonoBehaviour
         {
             currentJumpCount = 0;
             JumpCountText.text = "JumpCount: " + currentJumpCount;
+            animator.SetBool("Is_Jumping", false);
         }
     }
 
@@ -95,6 +103,8 @@ public class Control : MonoBehaviour
         gravity = GetComponent<Gravity>();
         gravity.DirectionNum = 5;
         currentJumpCount = 0;
+        animator.SetBool("Is_Walking", false);
+        animator.SetBool("Is_Jumping", false);
 
         JumpCountText.text = "JumpCount: " + currentJumpCount;
     }
