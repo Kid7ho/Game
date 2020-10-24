@@ -67,6 +67,7 @@
     <Compile Include="Assets\Scripts\Control.cs" />
     <Compile Include="Assets\Scripts\ExitGame.cs" />
     <Compile Include="Assets\Scripts\Gravity.cs" />
+    <Compile Include="Assets\Scripts\Item.cs" />
     <Compile Include="Assets\Scripts\SceneChange.cs" />
     <Compile Include="Assets\Scripts\UI\TextBlink.cs" />
     <Reference Include="UnityEngine">
